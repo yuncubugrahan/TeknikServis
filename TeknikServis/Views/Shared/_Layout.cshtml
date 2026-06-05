@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — TeknikServis</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body { background: #f8f5f2; }
+        .navbar { background: #1a1a1a !important; border-bottom: 3px solid #D85A30; }
+        .navbar-brand { color: #D85A30 !important; font-weight: 700; font-size: 22px; letter-spacing: 1px; }
+        .navbar-brand span { color: #fff; }
+        .nav-link { color: #ccc !important; font-size: 14px; }
+        .nav-link:hover { color: #D85A30 !important; }
+        .btn-turuncu { background: #D85A30; color: #fff; border: none; }
+        .btn-turuncu:hover { background: #993C1D; color: #fff; }
+        .footer { background: #1a1a1a; color: #888; font-size: 13px; padding: 1rem 0; margin-top: 3rem; border-top: 3px solid #D85A30; }
+        .footer a { color: #D85A30; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="/ServiceRequests/Index">
+                    🔧 Teknik<span>Servis</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/ServiceRequests/Index">Talepler</a>
+                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/ServiceRequests/Add">+ Yeni Talep</a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item d-flex align-items-center">
+                                <span class="nav-link text-warning">
+                                    👤 @User.Identity.Name
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <span class="badge ms-1" style="background:#D85A30; font-size:11px;">Admin</span>
+                                    }
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Account/Logout">Çıkış Yap</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Account/Login">Giriş Yap</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Account/Register">Kayıt Ol</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span>© 2026 Tüm hakları saklıdır.</span>
+            <span>Geliştirici: <a href="#">Buğrahan</a></span>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
